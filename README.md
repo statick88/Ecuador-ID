@@ -13,8 +13,7 @@ Clonar el repositorio
 
 ```markdown
 pip install tabulate
-git clone https://github.com/Alcatraz2033/IP-Dox.git
-cd IP-Dox
-chmod +x ip_doxx.sh
-sudo ./ip_doxx.sh
+git clone https://github.com/Alcatraz2033/Ecuador-ID.git
+cd Ecuador-ID
+py Ecuador-ID.py
 ```
