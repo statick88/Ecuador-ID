@@ -4,7 +4,7 @@ Este es un script creado para poder buscar en base al nombre y apellido, todos l
 múy util para encontrar información de la persona que estas buscando. APLICA SOLO PARA ECUADOR.
 
 <p align="left">
-	<img src="https://i.imgur.com/KCpGwaE.png" width="75%" height="75%" align="">
+	<img src="https://i.imgur.com/uG94BTJ.png" width="75%" height="75%" align="">
 </p>
 
 ## Instalación
