@@ -47,12 +47,23 @@ data = list()
 
 def nombre():
 
-    intro = input(f"\n{CYAN}[+]{RESET} Ingrese el nombre y apellido: ").upper().split()
-
+    nombre = input(f"\n{CYAN}[+]{RESET} Nombres: ").upper().split()
+    apellido = input(f"{CYAN}[+]{RESET} Apellidos: ").upper().split()
+    
     try:
-        r = requests.get(url + f"/movil-servicios/api/v1.0/deudas/porDenominacion/{intro[1]}%20{intro[0]}/?tipoPersona=N&resultados=30")
+        if len(nombre) == 1 and len(apellido) == 1:
+            r = requests.get(url + f"/movil-servicios/api/v1.0/deudas/porDenominacion/{apellido[0]}%20{nombre[0]}/?tipoPersona=N&resultados=30") 
+        elif len(nombre) == 2 and len(apellido) == 1:
+            r = requests.get(url + f"/movil-servicios/api/v1.0/deudas/porDenominacion/{apellido[0]}%20{nombre[0]}%20{nombre[1]}/?tipoPersona=N&resultados=30")    
+        elif len(nombre) == 1 and len(apellido) == 2:
+            r = requests.get(url + f"/movil-servicios/api/v1.0/deudas/porDenominacion/{apellido[0]}%20{apellido[1]}%20{nombre[0]}/?tipoPersona=N&resultados=30")   
+        elif len(nombre) == 2 and len(apellido) == 2:
+            r = requests.get(url + f"/movil-servicios/api/v1.0/deudas/porDenominacion/{apellido[0]}%20{apellido[1]}%20{nombre[0]}%20{nombre[1]}/?tipoPersona=N&resultados=30")     
+        elif len(nombre) == 0 or len(apellido) == 0:
+            print(f"{RED}[!]{RESET} Campos incompletos")
+            exit()
     except:
-        print(f"{RED}[!]{RESET} Ingrese el nombre y apellido correctamente")
+        print(f"{RED}[!]{RESET} Ingrese dos nombres y dos apellidos")
         exit()
 
     for i in json.loads(r.text):
@@ -62,7 +73,8 @@ def nombre():
             clase  = i['clase']
             data.append([CYAN + user + RESET, GREEN + ID + RESET, WHITE + clase + RESET])
         except:
-            print(f"{RED}[!]{RESET} Ingrese el primer nombre y apellido sin tildes")
+            print(f"{RED}[!]{RESET} Esta persona no existe")
+            print(f"{RED}[!]{RESET} Prueba ingresar los datos sin tildes")
             exit()
         
     col_names = [f"{YELLOW}Nombre{RESET}", f"{YELLOW}ID{RESET}", f"{YELLOW}Clase{RESET}"]
