@@ -106,7 +106,7 @@ def nombre():
             else:
                 ciudad = ciudades[ID[:2]]
             
-            data.append([CYAN + user + RESET, GREEN + ID + RESET, WHITE + clase + RESET, MAGENTA + ciudad + RESET])
+            data.append([CYAN + user + RESET, GREEN + ID + RESET, WHITE + clase + RESET, CYAN + ciudad + RESET])
 
         except:
             print(f"{RED}[!]{RESET} Esta persona no existe")
@@ -137,7 +137,7 @@ def cedula():
         else:
             ciudad = ciudades[ID[:2]]
         
-        data.append([CYAN + user + RESET, GREEN + ID + RESET, WHITE + clase + RESET, MAGENTA + ciudad + RESET])
+        data.append([CYAN + user + RESET, GREEN + ID + RESET, WHITE + clase + RESET, CYAN + ciudad + RESET])
 
     except:
         print(f"{RED}[!]{RESET} Este numero de cedula no existe")
