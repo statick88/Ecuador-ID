@@ -44,6 +44,35 @@ print(f"{CYAN}1) Busqueda por nombre\n2) Busqueda por cedula{RESET}")
 
 url = "https://srienlinea.sri.gob.ec"
 data = list()
+col_names = [f"{YELLOW}Nombre{RESET}", f"{YELLOW}ID{RESET}", f"{YELLOW}Clase{RESET}", f"{YELLOW}Ciudad{RESET}"]
+ciudades = {
+
+    '01' : 'Azuay',
+    '02' : 'Bolívar',
+    '03' : 'Cañar',
+    '04' : 'Carchi',
+    '05' : 'Cotopaxi', 
+    '06' : 'Chimborazo',
+    '07' : 'El Oro', 
+    '08' : 'Esmeraldas', 
+    '09' : 'Guayas', 
+    '10' : 'Imbabura', 
+    '11' : 'Loja', 
+    '12' : 'Los Ríos', 
+    '13' : 'Manabí', 
+    '14' : 'Morona Santiago', 
+    '15' : 'Napo', 
+    '16' : 'Pastaza', 
+    '17' :'Pichincha', 
+    '18' : 'Tungurahua', 
+    '19' : 'Zamora Chinchipe', 
+    '20' : 'Galápagos', 
+    '21' : 'Sucumbíos', 
+    '22' : 'Orellana', 
+    '23' :'Santo Domingo de los Tsáchilas',
+    '24' : 'Santa Elena'
+}
+
 
 def nombre():
 
@@ -71,13 +100,18 @@ def nombre():
             user = i['nombreComercial']
             ID  = i['identificacion']
             clase  = i['clase']
-            data.append([CYAN + user + RESET, GREEN + ID + RESET, WHITE + clase + RESET])
+
+            if len(ID) > 10:
+                ciudad = "No registrada"
+            else:
+                ciudad = ciudades[ID[:2]]
+            
+            data.append([CYAN + user + RESET, GREEN + ID + RESET, WHITE + clase + RESET, MAGENTA + ciudad + RESET])
+
         except:
             print(f"{RED}[!]{RESET} Esta persona no existe")
             print(f"{RED}[!]{RESET} Prueba ingresar los datos sin tildes")
             exit()
-        
-    col_names = [f"{YELLOW}Nombre{RESET}", f"{YELLOW}ID{RESET}", f"{YELLOW}Clase{RESET}"]
 
     print(f'\n{tabulate(data, headers=col_names, tablefmt="fancy_grid", showindex=True)}')
 
@@ -97,13 +131,17 @@ def cedula():
         user = dictionary['contribuyente']['nombreComercial']
         ID = dictionary['contribuyente']['identificacion']
         clase = dictionary['contribuyente']['clase']
+
+        if len(ID) > 10:
+            ciudad = "No registrada"
+        else:
+            ciudad = ciudades[ID[:2]]
+        
+        data.append([CYAN + user + RESET, GREEN + ID + RESET, WHITE + clase + RESET, MAGENTA + ciudad + RESET])
+
     except:
         print(f"{RED}[!]{RESET} Este numero de cedula no existe")
         exit()
-            
-    data.append([CYAN + user + RESET, GREEN + ID + RESET, WHITE + clase + RESET])
-    
-    col_names = [f"{YELLOW}Nombre{RESET}", f"{YELLOW}ID{RESET}", f"{YELLOW}Clase{RESET}"]
     
     print(f'\n{tabulate(data, headers=col_names, tablefmt="fancy_grid", showindex=True)}')
 
