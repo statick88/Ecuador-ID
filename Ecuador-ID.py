@@ -46,7 +46,6 @@ url = "https://srienlinea.sri.gob.ec"
 data = list()
 col_names = [f"{YELLOW}Nombre{RESET}", f"{YELLOW}ID{RESET}", f"{YELLOW}Clase{RESET}", f"{YELLOW}Ciudad{RESET}"]
 ciudades = {
-
     '01' : 'Azuay',
     '02' : 'Bolívar',
     '03' : 'Cañar',
@@ -72,7 +71,6 @@ ciudades = {
     '23' :'Santo Domingo de los Tsáchilas',
     '24' : 'Santa Elena'
 }
-
 
 def nombre():
 
