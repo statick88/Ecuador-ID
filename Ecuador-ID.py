@@ -68,7 +68,7 @@ ciudades = {
     '20' : 'Galápagos', 
     '21' : 'Sucumbíos', 
     '22' : 'Orellana', 
-    '23' :'Santo Domingo de los Tsáchilas',
+    '23' :'Santo Domingo',
     '24' : 'Santa Elena'
 }
 
