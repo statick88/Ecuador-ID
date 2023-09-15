@@ -135,7 +135,7 @@ class process():
 
         data = list()
         col_names = [f"{YELLOW}Nombre{RESET}", f"{YELLOW}Juicio Numero{RESET}", f"{YELLOW}Delito{RESET}", f"{YELLOW}Fecha{RESET}", f"{YELLOW}Lugar{RESET}"]
-        url = 'http://consultas.funcionjudicial.gob.ec'
+        url = 'https://consultas.funcionjudicial.gob.ec'
         send = {"parametro":f"{self.cedula}","paginaIncial":1,"paginaFinal":10,"origen":"cedula"}
 
         s = requests.session()
