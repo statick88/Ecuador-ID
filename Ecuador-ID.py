@@ -1,5 +1,6 @@
 import requests, json, signal
 from tabulate import tabulate
+from datetime import datetime
 
 BLACK = '\033[30m'
 RED = '\033[31m'
@@ -53,6 +54,14 @@ class process():
         print(banner)
         print(f"{CYAN}1) Busqueda por nombre\n2) Busqueda por cedula{RESET}")
 
+    def time_convert(self, time_serial):
+
+        fecha_hora_original = time_serial
+        fecha_hora_parseada = datetime.strptime(fecha_hora_original, "%Y-%m-%dT%H:%M:%S.%f%z")
+        fecha_hora_legible = fecha_hora_parseada.strftime("%Y-%m-%d %H:%M:%S %Z")
+
+        return fecha_hora_legible
+    
     def nombre(self):
         cedula2 = list()
         nombre = input(f"\n{CYAN}[+]{RESET} Nombres: ").upper().split()
@@ -131,28 +140,67 @@ class process():
         selec = int(input(f"{GREEN}[PERSONA NUMERO]─►{RESET} "))
         self.cedula = cedula2[selec]
         
+    # def denuncias(self):
+# 
+        # data = list()
+        # col_names = [f"{YELLOW}Nombre{RESET}", f"{YELLOW}Juicio Numero{RESET}", f"{YELLOW}Delito{RESET}", f"{YELLOW}Fecha{RESET}", f"{YELLOW}Lugar{RESET}"]
+        # url = 'https://consultas.funcionjudicial.gob.ec'
+        # send = {"parametro":f"{self.cedula}","paginaIncial":1,"paginaFinal":10,"origen":"cedula"}
+# 
+        # s = requests.session()
+# 
+        # r = s.post(url + f'/informacionjudicialindividual/api/defensorPenal/buscarPorNombreCedula/{self.cedula}/1/10/cedula', json=send)
+# 
+        # dictionary = json.loads(r.text); dictionary = dictionary['respuesta']
+# 
+        # for i in dictionary:
+            # nombre = i['nombre']
+            # juicio = i['idJuicio']
+            # delito = i['nombreDelito']
+            # fecha = i['fechaProvidencia']
+            # lugar = i['nombreProvincia']
+# 
+            # data.append([CYAN + nombre + RESET, GREEN + juicio + RESET, RED + delito + RESET, WHITE + fecha + RESET, CYAN + lugar + RESET])
+        # print(f'\n{tabulate(data, headers=col_names, tablefmt="fancy_grid", showindex=True)}')
+
+
     def denuncias(self):
 
+        col_names = [f"{YELLOW}Fecha de Ingreso{RESET}", f"{YELLOW}No. Proceso{RESET}", f"{YELLOW}Accion/Infraccion{RESET}"]
         data = list()
-        col_names = [f"{YELLOW}Nombre{RESET}", f"{YELLOW}Juicio Numero{RESET}", f"{YELLOW}Delito{RESET}", f"{YELLOW}Fecha{RESET}", f"{YELLOW}Lugar{RESET}"]
-        url = 'https://consultas.funcionjudicial.gob.ec'
-        send = {"parametro":f"{self.cedula}","paginaIncial":1,"paginaFinal":10,"origen":"cedula"}
+        url = "https://api.funcionjudicial.gob.ec"
 
-        s = requests.session()
+        headers = {
+            "Content-Type": "application/json"
+        }
 
-        r = s.post(url + f'/informacionjudicialindividual/api/defensorPenal/buscarPorNombreCedula/{self.cedula}/1/10/cedula', json=send)
+        data_j = {
+            "numeroCausa": "",
+            "actor": {
+                "cedulaActor": "",
+                "nombreActor": ""
+            },
+            "demandado": {
+                "cedulaDemandado": f"{self.cedula}",
+                "nombreDemandado": ""
+            },
+            "provincia": "",
+            "numeroFiscalia": "",
+            "recaptcha": "verdad"
+        }
+        json_data = json.dumps(data_j)
 
-        dictionary = json.loads(r.text); dictionary = dictionary['respuesta']
+        r = requests.post(url + '/informacion/buscarCausas?page=1&size=100', data=json_data, headers=headers)
 
+        dictionary = json.loads(r.text)
         for i in dictionary:
-            nombre = i['nombre']
             juicio = i['idJuicio']
-            delito = i['nombreDelito']
-            fecha = i['fechaProvidencia']
-            lugar = i['nombreProvincia']
+            delito = i['nombreDelito'].rstrip()
+            fecha = self.time_convert(i['fechaIngreso'])
 
-            data.append([CYAN + nombre + RESET, GREEN + juicio + RESET, RED + delito + RESET, WHITE + fecha + RESET, CYAN + lugar + RESET])
+            data.append([CYAN + fecha + RESET, GREEN + juicio + RESET, RED + delito + RESET])
         print(f'\n{tabulate(data, headers=col_names, tablefmt="fancy_grid", showindex=True)}')
+
 
 ecuador = process()
 ecuador.banner()
@@ -174,4 +222,3 @@ else:
     if opt == 2:
         ecuador.cedulas()
         ecuador.denuncias()
-        
