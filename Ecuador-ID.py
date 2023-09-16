@@ -140,30 +140,6 @@ class process():
         selec = int(input(f"{GREEN}[PERSONA NUMERO]─►{RESET} "))
         self.cedula = cedula2[selec]
         
-    # def denuncias(self):
-# 
-        # data = list()
-        # col_names = [f"{YELLOW}Nombre{RESET}", f"{YELLOW}Juicio Numero{RESET}", f"{YELLOW}Delito{RESET}", f"{YELLOW}Fecha{RESET}", f"{YELLOW}Lugar{RESET}"]
-        # url = 'https://consultas.funcionjudicial.gob.ec'
-        # send = {"parametro":f"{self.cedula}","paginaIncial":1,"paginaFinal":10,"origen":"cedula"}
-# 
-        # s = requests.session()
-# 
-        # r = s.post(url + f'/informacionjudicialindividual/api/defensorPenal/buscarPorNombreCedula/{self.cedula}/1/10/cedula', json=send)
-# 
-        # dictionary = json.loads(r.text); dictionary = dictionary['respuesta']
-# 
-        # for i in dictionary:
-            # nombre = i['nombre']
-            # juicio = i['idJuicio']
-            # delito = i['nombreDelito']
-            # fecha = i['fechaProvidencia']
-            # lugar = i['nombreProvincia']
-# 
-            # data.append([CYAN + nombre + RESET, GREEN + juicio + RESET, RED + delito + RESET, WHITE + fecha + RESET, CYAN + lugar + RESET])
-        # print(f'\n{tabulate(data, headers=col_names, tablefmt="fancy_grid", showindex=True)}')
-
-
     def denuncias(self):
 
         col_names = [f"{YELLOW}Fecha de Ingreso{RESET}", f"{YELLOW}No. Proceso{RESET}", f"{YELLOW}Accion/Infraccion{RESET}"]
