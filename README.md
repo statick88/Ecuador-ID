@@ -16,15 +16,11 @@ Este es un script creado para poder buscar en base al nombre y apellido, todos l
 múy util para encontrar información de la persona que estas buscando. APLICA SOLO PARA ECUADOR.
 
 ##
-<p align="left">
-	<img src="https://i.imgur.com/M5F3JX6.png" width="75%" height="75%" align="">
-</p>
+
 
 ## Búsqueda de delitos
 Ahora puedes seleccionar y conocer si esa persona ha cometido algún delito
-<p align="left">
-	<img src="https://i.imgur.com/C1nmguT.png" width="75%" height="75%" align="">
-</p>
+
 
 ## Instalación
 
